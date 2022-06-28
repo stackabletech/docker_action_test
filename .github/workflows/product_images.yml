@@ -18,7 +18,7 @@ jobs:
         run: |
           [[ ! "$GITHUB_REF" =~ refs/tags ]] && exit 255
           TAG=${GITHUB_REF#refs/tags/}
-          echo "Found tag: [$TAG]
+          echo "Found tag: [$TAG]"
           echo "::set-output name=tag_name::$TAG"
       - name: Checkout
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
