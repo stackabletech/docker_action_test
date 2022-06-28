@@ -41,24 +41,27 @@ jobs:
     steps:
       - id: extractproduct
         run: |
-          echo "::set-output name=product::$(\
-          echo $TAGNAME | \
+          PRODUCT=$(echo $TAGNAME | \
           sed -r "s/(kafka|zookeeper|nifi|druid|opa|hbase|hdfs|trino|airflow|superset|spark-k8s).*/\1/" \
-          )"
+          )
+          echo "Extracted [\'$PRODUCT\'] as product"
+          echo "::set-output name=product::$PRODUCT"
       - id: extractversion
         run: |
-          echo "::set-output name=version::$(\
-          echo $TAGNAME | \
+          VERSION=$(echo $TAGNAME | \
           sed -r "s/(kafka|zookeeper|nifi|druid|opa|hbase|hdfs|trino|airflow|superset|spark-k8s)//" | \
           sed -r "s/([^-]+)-.*/\1/" \
-          )"
+          )
+          echo "Extracted [\'$VERSION\'] as version"
+          echo "::set-output name=version::$VERSION"
       - id: extractimageversion
         run: |
-          echo "::set-output name=imageversion::$(\
-          echo $TAGNAME | \
+          IMAGEVERSION=$(echo $TAGNAME | \
           sed -r "s/(kafka|zookeeper|nifi|druid|opa|hbase|hdfs|trino|airflow|superset|spark-k8s)//" | \
           sed -r "s/^[^-]+-stackable(.*)/\1/" \
-          )"
+          )
+          echo "Extracted [\'$IMAGEVERSION\'] as imageversion"
+          echo "::set-output name=imageversion::$IMAGEVERSION"
 
   build:
     name: Build image
