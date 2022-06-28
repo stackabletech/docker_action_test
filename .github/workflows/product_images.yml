@@ -39,12 +39,14 @@ jobs:
       version: ${{ steps.extractversion.outputs.version }}
       image_version: ${{ steps.extractimageversion.outputs.imageversion }}
     steps:
+      - id: debug
+        run: echo $TAGNAME
       - id: extractproduct
         run: |
           PRODUCT=$(echo $TAGNAME | \
           sed -r "s/(kafka|zookeeper|nifi|druid|opa|hbase|hdfs|trino|airflow|superset|spark-k8s).*/\1/" \
           )
-          echo "Extracted [\'$PRODUCT\'] as product"
+          echo "Extracted [\"$PRODUCT\"] as product"
           echo "::set-output name=product::$PRODUCT"
       - id: extractversion
         run: |
@@ -52,7 +54,7 @@ jobs:
           sed -r "s/(kafka|zookeeper|nifi|druid|opa|hbase|hdfs|trino|airflow|superset|spark-k8s)//" | \
           sed -r "s/([^-]+)-.*/\1/" \
           )
-          echo "Extracted [\'$VERSION\'] as version"
+          echo "Extracted [\"$VERSION\"] as version"
           echo "::set-output name=version::$VERSION"
       - id: extractimageversion
         run: |
@@ -60,7 +62,7 @@ jobs:
           sed -r "s/(kafka|zookeeper|nifi|druid|opa|hbase|hdfs|trino|airflow|superset|spark-k8s)//" | \
           sed -r "s/^[^-]+-stackable(.*)/\1/" \
           )
-          echo "Extracted [\'$IMAGEVERSION\'] as imageversion"
+          echo "Extracted [\"$IMAGEVERSION\"] as imageversion"
           echo "::set-output name=imageversion::$IMAGEVERSION"
 
   build:
