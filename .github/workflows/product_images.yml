@@ -20,12 +20,12 @@ jobs:
           echo "::set-output name=tag_name::${GITHUB_REF#refs/tags/}"
       - name: Checkout
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
-      - name: Check if [${{ steps.version_tag.outputs.tag_name }}] matches expected format
+      - name: Check if tag matches expected format
         env:
           TAGNAME: ${{ steps.version_tag.outputs.tag_name }}
         run: |
           echo Checking $TAGNAME
-          [[ ! "$TAGNAME" =~ ^kafka|zookeeper|nifi|druid|opa|hbase|hdfs|trino|airflow|superset|spark-k8s|.+-stackable\d+\.\d+\.\d+ ]] && exit 255
+          [[ "$TAGNAME" =~ ^kafka|zookeeper|nifi|druid|opa|hbase|hdfs|trino|airflow|superset|spark-k8s|.+-stackable\d+\.\d+\.\d+ ]] && echo "${TAGNAME} valid || exit 255
 
   parse_tag:
     name: Extract product, version and imageversion from tag name
