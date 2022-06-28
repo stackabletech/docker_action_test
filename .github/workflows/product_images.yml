@@ -41,7 +41,7 @@ jobs:
     outputs:
       product: ${{ steps.extractproduct.outputs.product }}
       version: ${{ steps.extractversion.outputs.version }}
-      image_version: ${{ steps.extractimageversion.outputs.imageversion }}
+      imageversion: ${{ steps.extractimageversion.outputs.imageversion }}
     steps:
       - id: debug
         run: echo $TAGNAME
