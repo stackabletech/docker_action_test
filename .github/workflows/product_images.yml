@@ -12,7 +12,7 @@ jobs:
       TAG_NAME: ${{ github.ref }}
     steps:
       - name: Reject malformed
-        run: [[ "$TAG_NAME" =~ ^kafka|zookeeper|nifi|druid|opa|hbase|hdfs|trino|airflow|superset|spark-k8s|.+-stackable\d+\.\d+\.\d+ ]] && echo "Tag valid"  || exit -1
+        run: echo imageversion
         
   parse_tag:
     name: Extract product, version and imageversion from tag name
