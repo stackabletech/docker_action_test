@@ -80,4 +80,4 @@ jobs:
       IMAGEVERSION: ${{ needs.parse_tag.outputs.imageversion }}
     steps:
       - name: Build image
-        run: echo "Building ${PRODUCT}${VERSION}-${IMAGEVERSION}"
+        run: echo "Building ${PRODUCT}${PRODUCTVERSION}-${IMAGEVERSION}"
