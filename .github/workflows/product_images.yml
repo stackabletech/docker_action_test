@@ -11,7 +11,8 @@ jobs:
     env:
       TAG_NAME: ${{ github.ref }}
     steps:
-      - run: [[ "$TAG_NAME" =~ ^kafka|zookeeper|nifi|druid|opa|hbase|hdfs|trino|airflow|superset|spark-k8s|.+-stackable\d+\.\d+\.\d+ ]] && echo "Tag valid"  || exit -1
+      - name: Reject malformed
+        run: [[ "$TAG_NAME" =~ ^kafka|zookeeper|nifi|druid|opa|hbase|hdfs|trino|airflow|superset|spark-k8s|.+-stackable\d+\.\d+\.\d+ ]] && echo "Tag valid"  || exit -1
         
   parse_tag:
     name: Extract product, version and imageversion from tag name
@@ -49,4 +50,5 @@ jobs:
       PRODUCTVERSION: ${{ needs.parse_tag.outputs.version }}
       IMAGEVERSION: ${{ needs.parse_tag.outputs.imageversion }}
     steps:
-      - run: echo 'Building ${PRODUCT}${VERSION}-${IMAGEVERSION}'
+      - name: Build image
+        run: echo 'Building ${PRODUCT}${VERSION}-${IMAGEVERSION}'
