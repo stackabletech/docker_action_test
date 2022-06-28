@@ -3,6 +3,7 @@ name: Product images
 on:
   push:
     tags:
+      - '*'
 
 jobs:
   reject_illegal_tags:
