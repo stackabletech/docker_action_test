@@ -11,8 +11,9 @@ jobs:
     env:
       TAG_NAME: ${{ github.ref }}
     steps:
-      - name: Check if [${TAG_NAME}] matches expected format
+      - name: Checkout
         uses: actions/checkout@2541b1294d2704b0964813337f33b291d3f8596b # tag=v3.0.2
+      - name: Check if [${TAG_NAME}] matches expected format
         run: ./check_tag.sh $TAG_NAME
 
   parse_tag:
